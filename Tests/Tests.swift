@@ -1,15 +1,16 @@
 //
-//  ShortcutKitTests.swift
-//  ShortcutKitTests
+//  Tests.swift
+//  Tests
 //
-//  Created by mrahmiao on 11/3/15.
+//  Created by mrahmiao on 11/13/15.
 //  Copyright © 2015 Code4Blues. All rights reserved.
 //
 
 import XCTest
-@testable import ShortcutKit
+@testable
+import ShortcutKit
 
-class ShortcutKitTests: XCTestCase {
+class Tests: XCTestCase {
     
     override func setUp() {
         super.setUp()
