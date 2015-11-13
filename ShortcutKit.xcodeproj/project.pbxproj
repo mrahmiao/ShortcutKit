@@ -18,7 +18,6 @@
 		4F8F87531BF5C46700D40378 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F87521BF5C46700D40378 /* ViewController.swift */; };
 		4F8F87551BF5C46700D40378 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F87541BF5C46700D40378 /* Assets.xcassets */; };
 		4F8F87581BF5C46700D40378 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F87561BF5C46700D40378 /* Main.storyboard */; };
-		4F8F875E1BF5C55B00D40378 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F875D1BF5C55B00D40378 /* README.md */; };
 		4F8F87601BF5C94200D40378 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F875F1BF5C94200D40378 /* LICENSE */; };
 		4FD306B61BE98C91003E9536 /* SCKRecorderControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD306B11BE98C91003E9536 /* SCKRecorderControl.swift */; };
 		4FD306BA1BE98C91003E9536 /* ShortcutKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD306B51BE98C91003E9536 /* ShortcutKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -324,7 +323,6 @@
 				4F501CAB1BF5831A000A5CF8 /* SCKError.swift in Sources */,
 				4F501CA91BF5831A000A5CF8 /* Shortcut.swift in Sources */,
 				4F501CA81BF5831A000A5CF8 /* HotkeyManager.swift in Sources */,
-				4F8F875E1BF5C55B00D40378 /* README.md in Sources */,
 				4FE054FE1BEA550100F6CD49 /* SCKStyleKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,7 +412,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -434,7 +432,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -461,7 +459,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -475,7 +473,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
