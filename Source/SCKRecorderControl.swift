@@ -26,7 +26,7 @@ import Cocoa
 }
 
 @IBDesignable
-public class SCKRecorderControl: NSControl, HotkeyRegistrable {
+@objc(SCKRecorderControl) public class SCKRecorderControl: NSControl, HotkeyRegistrable {
   
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
