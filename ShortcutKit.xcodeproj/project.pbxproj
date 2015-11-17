@@ -512,6 +512,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -519,6 +520,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.code4blues.mrahmiao.ShortcutKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -532,6 +534,7 @@
 				4F8F87471BF5C0F300D40378 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4F8F875A1BF5C46700D40378 /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
@@ -540,6 +543,7 @@
 				4F8F875C1BF5C46700D40378 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4FD90F701BE853A900FADA2F /* Build configuration list for PBXProject "ShortcutKit" */ = {
 			isa = XCConfigurationList;
