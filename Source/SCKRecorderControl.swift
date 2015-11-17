@@ -25,8 +25,7 @@ import Cocoa
   optional func recorderControl(control: SCKRecorderControl, validateShortcutWithKeyCode keycode: UInt16, modifierFlags modifiers: NSEventModifierFlags) -> String?
 }
 
-@IBDesignable
-@objc(SCKRecorderControl) public class SCKRecorderControl: NSControl, HotkeyRegistrable {
+@objc(SCKRecorderControl) public class SCKRecorderControl: NSControl {
   
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
@@ -61,7 +60,7 @@ import Cocoa
   
   /// Used to identify your control in hotkey registration and state restoration. It will be set as
   /// the key of the defaults.
-  public internal(set) var controlIdentifier: String! {
+  var cIdentifier: String! {
     didSet {
       let defaults = NSUserDefaults.standardUserDefaults()
       
@@ -73,6 +72,7 @@ import Cocoa
       }
     }
   }
+  
   
   /// A Shortcut associated with recorder control, which is used to register hotkey.
   private(set) var associatedShortcut: Shortcut? {
@@ -109,7 +109,7 @@ import Cocoa
   lazy var validator: ShortcutValidator = ShortcutValidator(preferences: self.preferences)
   
   // State of shortcut recording
-  @IBInspectable private var recording: Bool = false {
+  private var recording: Bool = false {
     didSet {
       if recording {
         
@@ -185,6 +185,18 @@ import Cocoa
   private lazy var rightButtonRect: CGRect = CGRect(x: 162, y: 4, width: 13, height: 13)
   private lazy var leftButtonRect: CGRect = self.rightButtonRect.offsetBy(dx: -15, dy: 0)
   
+}
+
+extension SCKRecorderControl: HotkeyRegistrable {
+  var controlIdentifier: String! {
+    set {
+      cIdentifier = controlIdentifier
+    }
+    
+    get {
+      return cIdentifier
+    }
+  }
 }
 
 // MARK: - Shortcut Binding API
