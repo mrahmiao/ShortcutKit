@@ -7,11 +7,11 @@ ShortcutKit is a shortcut recording library written in Swift.
 
 - [x] Standalone control
 - [x] Record shortcut
-- [] Demo
-- [] Tests
-- [] Accessibility
-- [] Localization
-- [] Complete Documentation
+- [ ] Demo
+- [ ] Tests
+- [ ] Accessibility
+- [ ] Localization
+- [ ] Complete Documentation
 
 ## Requirements
 
