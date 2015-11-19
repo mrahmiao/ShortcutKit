@@ -75,7 +75,7 @@ private extension ShortcutValidator {
   }
   
   func isShortcutExistInApp(shortcut: Shortcut) -> Bool {
-    return HotkeyManager.sharedManager.isShortcutRegistered(shortcut)
+    return SCKHotkeyManager.sharedManager.isShortcutRegistered(shortcut)
   }
 
   func isShortcutTakenBySystem(shortcut: Shortcut) -> Bool {

@@ -9,7 +9,7 @@
 import Foundation
 import Carbon
 
-public typealias HotkeyHandler = Void -> Void
+public typealias SCKHotkeyHandler = Void -> Void
 typealias ShortcutUpdater = (Shortcut?, Shortcut?) -> Void
 private var hotkeyCarbonID: UInt32 = 0
 private let HotkeySignature: OSType = OSTypeFromString("SCKF")
@@ -25,13 +25,13 @@ private class Hotkey {
   var shortcut: Shortcut?
   let hotkeyID: EventHotKeyID
   var hotkeyRef: EventHotKeyRef
-  let handler: HotkeyHandler
+  let handler: SCKHotkeyHandler
   
   var activated: Bool {
     return self.hotkeyRef != EventHotKeyRef()
   }
   
-  init(handler: HotkeyHandler) {
+  init(handler: SCKHotkeyHandler) {
     self.handler = handler
     self.hotkeyID = EventHotKeyID(signature: HotkeySignature, id: ++hotkeyCarbonID)
     self.hotkeyRef = EventHotKeyRef()
@@ -39,8 +39,8 @@ private class Hotkey {
 }
 
 
-class HotkeyManager {
-  static let sharedManager: HotkeyManager = HotkeyManager()
+public class SCKHotkeyManager {
+  public static let sharedManager: SCKHotkeyManager = SCKHotkeyManager()
   
   private var hotkeys: [String: Hotkey] = [:]
   
@@ -61,7 +61,22 @@ class HotkeyManager {
   
 }
 
-extension HotkeyManager {
+// MARK: - APIs
+public extension SCKHotkeyManager {
+  func bindRegisteredControlWithIdentifier(identifier: String, toHandler handler: SCKHotkeyHandler) {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    guard let shortcutInfo = defaults.objectForKey(identifier) as? [String: AnyObject], let keyCode = shortcutInfo[RecorderDefaultsKey.KeyCode.rawValue] as? Int, let rawModifierFlags = shortcutInfo[RecorderDefaultsKey.ModifierFlags.rawValue] as? UInt else {
+      return
+    }
+    
+    let modifierFlags = NSEventModifierFlags(rawValue: rawModifierFlags)
+    let hotkey = Hotkey(handler: handler)
+    hotkey.shortcut = Shortcut(keycode: UInt16(keyCode), modifierFlags: modifierFlags, controlIdentifier: identifier)
+    registerHotKey(hotkey, withIdentifier: identifier)
+  }
+}
+
+extension SCKHotkeyManager {
   /**
    Bind the hotkey handler with your recorder control. This method is invoked in the
    recorder control.
@@ -70,8 +85,11 @@ extension HotkeyManager {
      - control
      - handler
   */
-  func bindControl(control: HotkeyRegistrable, toHandler handler: HotkeyHandler) {
-    hotkeys[control.controlIdentifier] = Hotkey(handler: handler)
+  func bindControl(control: HotkeyRegistrable, toHandler handler: SCKHotkeyHandler) {
+    
+    if hotkeys[control.controlIdentifier] == nil {
+      hotkeys[control.controlIdentifier] = Hotkey(handler: handler)
+    }
   }
   
   func unbindControl(control: HotkeyRegistrable) {
@@ -123,7 +141,7 @@ extension HotkeyManager {
   func resume() {
     if !paused { return }
     
-    for (identifier, hotkey) in hotkeys where hotkey.shortcut != nil {
+    for (identifier, hotkey) in hotkeys where hotkey.shortcut != nil{
       registerHotKey(hotkey, withIdentifier: identifier)
     }
     
@@ -151,22 +169,25 @@ extension HotkeyManager {
 }
 
 // MARK:- Helpers
-private extension HotkeyManager {
+private extension SCKHotkeyManager {
   func installDispatcherEventHandler() -> OSStatus {
     var eventSpec = EventTypeSpec(eventClass: KeyboardEventClass, eventKind: HotkeyPressedEventKind)
     return InstallEventHandler(GetEventDispatcherTarget(), { (inHandler, event, context) -> OSStatus in
-    return HotkeyManager.sharedManager.dispatchEvent(event)
+    return SCKHotkeyManager.sharedManager.dispatchEvent(event)
     }, 1, &eventSpec, nil, &eventHandlerRef)
   }
   
   func registerHotKey(hotkey: Hotkey, withIdentifier identifier: String) -> Bool {
+    assert(!hotkey.activated, "Hotkey \(hotkey.shortcut) has been regsitered.")
     
     guard let keycode = hotkey.shortcut?.carbonKeyCode, let modifiers = hotkey.shortcut?.carbonModifierFlags else {
       NSLog("Can not register a hotkey without key combination.")
       return false
     }
     
-    if RegisterEventHotKey(keycode, modifiers, hotkey.hotkeyID, GetEventDispatcherTarget(), 0, &hotkey.hotkeyRef) != noErr {
+    let result = RegisterEventHotKey(keycode, modifiers, hotkey.hotkeyID, GetEventDispatcherTarget(), 0, &hotkey.hotkeyRef)
+    NSLog("Hotkey \"\(hotkey.shortcut)\" registration result: \(result)")
+    if result != noErr {
       return false
     }
     
@@ -175,10 +196,10 @@ private extension HotkeyManager {
   }
   
   func unregisterHotKeyWithControlIdentifier(identifier: String) {
-    if let existingHotkey = hotkeys[identifier] {
-      UnregisterEventHotKey(existingHotkey.hotkeyRef)
-      existingHotkey.shortcut = nil
-      existingHotkey.hotkeyRef = EventHotKeyRef()
+    if let hotkey = hotkeys[identifier] where hotkey.activated {
+      UnregisterEventHotKey(hotkey.hotkeyRef)
+      hotkey.shortcut = nil
+      hotkey.hotkeyRef = EventHotKeyRef()
     }
   }
   
@@ -220,7 +241,7 @@ private func OSTypeFromString(string : String) -> UInt32 {
 }
 
 public func hotkeyEventHandler(handler: EventHandlerCallRef, inEvent event: EventRef, context: UnsafeMutablePointer<Void>) -> OSStatus {
-  return HotkeyManager.sharedManager.dispatchEvent(event)
+  return SCKHotkeyManager.sharedManager.dispatchEvent(event)
 }
 
 extension EventHotKeyID: Equatable { }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F501CA81BF5831A000A5CF8 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F501CA41BF5831A000A5CF8 /* HotkeyManager.swift */; };
+		4F099E971BFE14A800ED1D89 /* SCKHotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F099E961BFE14A800ED1D89 /* SCKHotkeyManager.swift */; };
 		4F501CA91BF5831A000A5CF8 /* Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F501CA51BF5831A000A5CF8 /* Shortcut.swift */; };
 		4F501CAA1BF5831A000A5CF8 /* ShortcutValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F501CA61BF5831A000A5CF8 /* ShortcutValidator.swift */; };
 		4F501CAB1BF5831A000A5CF8 /* SCKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F501CA71BF5831A000A5CF8 /* SCKError.swift */; };
@@ -19,12 +19,20 @@
 		4F8F87551BF5C46700D40378 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F87541BF5C46700D40378 /* Assets.xcassets */; };
 		4F8F87581BF5C46700D40378 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F87561BF5C46700D40378 /* Main.storyboard */; };
 		4F8F87601BF5C94200D40378 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F875F1BF5C94200D40378 /* LICENSE */; };
+		4FAB67CE1BFDFF60002D0F83 /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FAB67CD1BFDFF60002D0F83 /* PrefsViewController.swift */; };
 		4FD306B61BE98C91003E9536 /* SCKRecorderControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD306B11BE98C91003E9536 /* SCKRecorderControl.swift */; };
 		4FD306BA1BE98C91003E9536 /* ShortcutKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FD306B51BE98C91003E9536 /* ShortcutKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FE054FE1BEA550100F6CD49 /* SCKStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE054FD1BEA550100F6CD49 /* SCKStyleKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4F099E981BFE1E5C00ED1D89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FD90F6D1BE853A900FADA2F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FD90F751BE853A900FADA2F;
+			remoteInfo = ShortcutKit;
+		};
 		4F8F87431BF5C0F300D40378 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4FD90F6D1BE853A900FADA2F /* Project object */;
@@ -35,7 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4F501CA41BF5831A000A5CF8 /* HotkeyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HotkeyManager.swift; path = Source/Internal/HotkeyManager.swift; sourceTree = SOURCE_ROOT; };
+		4F099E961BFE14A800ED1D89 /* SCKHotkeyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCKHotkeyManager.swift; path = Source/SCKHotkeyManager.swift; sourceTree = SOURCE_ROOT; };
 		4F501CA51BF5831A000A5CF8 /* Shortcut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shortcut.swift; path = Source/Internal/Shortcut.swift; sourceTree = SOURCE_ROOT; };
 		4F501CA61BF5831A000A5CF8 /* ShortcutValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShortcutValidator.swift; path = Source/Internal/ShortcutValidator.swift; sourceTree = SOURCE_ROOT; };
 		4F501CA71BF5831A000A5CF8 /* SCKError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCKError.swift; path = Source/Internal/SCKError.swift; sourceTree = SOURCE_ROOT; };
@@ -51,6 +59,7 @@
 		4F8F87591BF5C46700D40378 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F8F875D1BF5C55B00D40378 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4F8F875F1BF5C94200D40378 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		4FAB67CD1BFDFF60002D0F83 /* PrefsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
 		4FD306B11BE98C91003E9536 /* SCKRecorderControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCKRecorderControl.swift; path = Source/SCKRecorderControl.swift; sourceTree = SOURCE_ROOT; };
 		4FD306B41BE98C91003E9536 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
 		4FD306B51BE98C91003E9536 /* ShortcutKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShortcutKit.h; path = Source/ShortcutKit.h; sourceTree = SOURCE_ROOT; };
@@ -101,6 +110,7 @@
 				4F8F87541BF5C46700D40378 /* Assets.xcassets */,
 				4F8F87561BF5C46700D40378 /* Main.storyboard */,
 				4F8F87591BF5C46700D40378 /* Info.plist */,
+				4FAB67CD1BFDFF60002D0F83 /* PrefsViewController.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -108,7 +118,6 @@
 		4FA00D971BF1D0B500AEB6D5 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				4F501CA41BF5831A000A5CF8 /* HotkeyManager.swift */,
 				4F501CA51BF5831A000A5CF8 /* Shortcut.swift */,
 				4F501CA61BF5831A000A5CF8 /* ShortcutValidator.swift */,
 				4F501CA71BF5831A000A5CF8 /* SCKError.swift */,
@@ -144,6 +153,7 @@
 				4FA00D971BF1D0B500AEB6D5 /* Internal */,
 				4FE054FC1BEA54EF00F6CD49 /* Utilities */,
 				4FD306B11BE98C91003E9536 /* SCKRecorderControl.swift */,
+				4F099E961BFE14A800ED1D89 /* SCKHotkeyManager.swift */,
 				4F501CAC1BF58323000A5CF8 /* SCKPreferences.swift */,
 				4FD306B51BE98C91003E9536 /* ShortcutKit.h */,
 				4FD306B41BE98C91003E9536 /* Info.plist */,
@@ -203,6 +213,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4F099E991BFE1E5C00ED1D89 /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = Demo;
@@ -309,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F8F87531BF5C46700D40378 /* ViewController.swift in Sources */,
+				4FAB67CE1BFDFF60002D0F83 /* PrefsViewController.swift in Sources */,
 				4F8F87511BF5C46700D40378 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,8 +333,8 @@
 				4FD306B61BE98C91003E9536 /* SCKRecorderControl.swift in Sources */,
 				4F501CAA1BF5831A000A5CF8 /* ShortcutValidator.swift in Sources */,
 				4F501CAB1BF5831A000A5CF8 /* SCKError.swift in Sources */,
+				4F099E971BFE14A800ED1D89 /* SCKHotkeyManager.swift in Sources */,
 				4F501CA91BF5831A000A5CF8 /* Shortcut.swift in Sources */,
-				4F501CA81BF5831A000A5CF8 /* HotkeyManager.swift in Sources */,
 				4FE054FE1BEA550100F6CD49 /* SCKStyleKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +342,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4F099E991BFE1E5C00ED1D89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FD90F751BE853A900FADA2F /* ShortcutKit */;
+			targetProxy = 4F099E981BFE1E5C00ED1D89 /* PBXContainerItemProxy */;
+		};
 		4F8F87441BF5C0F300D40378 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4FD90F751BE853A900FADA2F /* ShortcutKit */;
@@ -378,7 +395,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.code4blues.mrahmiao.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.code4blues.mrahmiao.ShortcutKit.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -390,7 +407,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.code4blues.mrahmiao.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.code4blues.mrahmiao.ShortcutKit.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

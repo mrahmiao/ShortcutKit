@@ -65,6 +65,12 @@ struct Shortcut {
   init(keyboardEvent event: NSEvent, control: HotkeyRegistrable) {
     self.init(keycode: event.keyCode, modifierFlags: event.modifierFlags, control: control)
   }
+  
+  init(keycode: UInt16, modifierFlags flags: NSEventModifierFlags, controlIdentifier identifier: String) {
+    self.keyCode = Int(keycode)
+    self.modifierFlags = flags.intersect(acceptableModifierFlags)
+    self.controlIdentifier = identifier
+  }
 }
 
 // MARK: - Equatable

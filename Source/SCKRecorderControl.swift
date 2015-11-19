@@ -8,6 +8,16 @@
 
 import Cocoa
 
+enum RecorderDefaultsKey: String, Hashable {
+  case Identifier
+  case KeyCode
+  case ModifierFlags
+  
+  var hashValue: Int {
+    return rawValue.hashValue
+  }
+}
+
 @objc public protocol SCKRecorderControlDeletgate {
   /**
    This method is called if validation failed, including validations of ShortcutKit and
@@ -25,7 +35,7 @@ import Cocoa
   optional func recorderControl(control: SCKRecorderControl, validateShortcutWithKeyCode keycode: UInt16, modifierFlags modifiers: NSEventModifierFlags) -> String?
 }
 
-@objc(SCKRecorderControl) public class SCKRecorderControl: NSControl {
+public class SCKRecorderControl: NSControl, HotkeyRegistrable {
   
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
@@ -43,7 +53,7 @@ import Cocoa
     layer?.cornerRadius = 4
     
     if let shortcut = associatedShortcut {
-      HotkeyManager.sharedManager.activateShortcut(shortcut, ofControl: self)
+      SCKHotkeyManager.sharedManager.activateShortcut(shortcut, ofControl: self)
     }
   }
   
@@ -60,13 +70,14 @@ import Cocoa
   
   /// Used to identify your control in hotkey registration and state restoration. It will be set as
   /// the key of the defaults.
-  var cIdentifier: String! {
+  var controlIdentifier: String! {
     didSet {
+      
       let defaults = NSUserDefaults.standardUserDefaults()
       
       if let shortcutValue = defaults.objectForKey(controlIdentifier) as? [String: AnyObject],
-        let keyCode = shortcutValue[UserDefaultsKey.KeyCode.rawValue] as? Int,
-        let rawModifierFlags = shortcutValue[UserDefaultsKey.ModifierFlags.rawValue] as? UInt {
+        let keyCode = shortcutValue[RecorderDefaultsKey.KeyCode.rawValue] as? Int,
+        let rawModifierFlags = shortcutValue[RecorderDefaultsKey.ModifierFlags.rawValue] as? UInt {
           let modifierFlags = NSEventModifierFlags(rawValue: rawModifierFlags)
           associatedShortcut = Shortcut(keycode: UInt16(keyCode), modifierFlags: modifierFlags, control: self)
       }
@@ -83,7 +94,7 @@ import Cocoa
       if let shortcut = associatedShortcut {
         
         // Register new shortcut or update existing shortcut
-        HotkeyManager.sharedManager.updateShortcut(shortcut, ofControl: self)
+        SCKHotkeyManager.sharedManager.updateShortcut(shortcut, ofControl: self)
         
         shortcutValue = [
           .KeyCode: shortcut.keyCode,
@@ -99,7 +110,7 @@ import Cocoa
         }
         
         // Removing an existing shortcut
-        HotkeyManager.sharedManager.updateShortcut(nil, ofControl: self)
+        SCKHotkeyManager.sharedManager.updateShortcut(nil, ofControl: self)
         shortcutValue = nil
         delegate?.recorderControl?(self, didRemoveShortcutWithKeyCode: oldShortcut.rawKeyCode, modifierFlags: oldShortcut.modifierFlags)
       }
@@ -113,14 +124,14 @@ import Cocoa
     didSet {
       if recording {
         
-        HotkeyManager.sharedManager.pause()
+        SCKHotkeyManager.sharedManager.pause()
         window?.makeFirstResponder(self)
       } else {
         if NSApp.mainWindow?.firstResponder == self {
           window?.makeFirstResponder(nil)
         }
         
-        HotkeyManager.sharedManager.resume()
+        SCKHotkeyManager.sharedManager.resume()
       }
       
       needsDisplay = true
@@ -146,7 +157,7 @@ import Cocoa
     return associatedShortcut?.description ?? "Click to Record Shortcut"
   }
   
-  private var shortcutValue: [UserDefaultsKey: AnyObject]? {
+  private var shortcutValue: [RecorderDefaultsKey: AnyObject]? {
     didSet {
       if controlIdentifier == nil {
         fatalError("controlIdentifier is a must set property.")
@@ -187,23 +198,11 @@ import Cocoa
   
 }
 
-extension SCKRecorderControl: HotkeyRegistrable {
-  var controlIdentifier: String! {
-    set {
-      cIdentifier = controlIdentifier
-    }
-    
-    get {
-      return cIdentifier
-    }
-  }
-}
-
 // MARK: - Shortcut Binding API
 public extension SCKRecorderControl {
   func bindIdentifier(identifier: String, andShortcutHandler handler: (SCKRecorderControl) -> Void) {
     controlIdentifier = identifier    
-    HotkeyManager.sharedManager.bindControl(self, toHandler: { handler(self) })
+    SCKHotkeyManager.sharedManager.bindControl(self, toHandler: { handler(self) })
   }
   
   func unbindShortcutRecorder() {
@@ -211,7 +210,7 @@ public extension SCKRecorderControl {
       return
     }
     
-    HotkeyManager.sharedManager.unbindControl(self)
+    SCKHotkeyManager.sharedManager.unbindControl(self)
   }
 }
 
@@ -371,17 +370,8 @@ public extension SCKRecorderControl {
   
 }
 
-private extension SCKRecorderControl {
-  enum UserDefaultsKey: String, Hashable {
-    case Identifier
-    case KeyCode
-    case ModifierFlags
-    
-    var hashValue: Int {
-      return rawValue.hashValue
-    }
-  }
-  
+extension SCKRecorderControl {
+
   // MARK: - Buttons Detecting
   func locationInLeftButtonRect(location: CGPoint) -> Bool {
     
@@ -398,11 +388,11 @@ private extension SCKRecorderControl {
 
 // MARK: - NSUserDefaults Convenience Methods
 private extension NSUserDefaults {
-  func setObject(object: AnyObject?, forKey key: SCKRecorderControl.UserDefaultsKey) {
+  func setObject(object: AnyObject?, forKey key: RecorderDefaultsKey) {
     setObject(object, forKey: key.rawValue)
   }
   
-  func setDictionary(dict: [SCKRecorderControl.UserDefaultsKey: AnyObject], forKey key: String) {
+  func setDictionary(dict: [RecorderDefaultsKey: AnyObject], forKey key: String) {
     var object = [String: AnyObject]()
     
     for (key, value) in dict {
@@ -412,15 +402,15 @@ private extension NSUserDefaults {
     setObject(object, forKey: key)
   }
   
-  func objectForKey(key: SCKRecorderControl.UserDefaultsKey) -> AnyObject? {
+  func objectForKey(key: RecorderDefaultsKey) -> AnyObject? {
     return objectForKey(key.rawValue)
   }
   
-  func stringForKey(key: SCKRecorderControl.UserDefaultsKey) -> String? {
+  func stringForKey(key: RecorderDefaultsKey) -> String? {
     return stringForKey(key.rawValue)
   }
   
-  func removeObjectForKey(key: SCKRecorderControl.UserDefaultsKey) {
+  func removeObjectForKey(key: RecorderDefaultsKey) {
     removeObjectForKey(key.rawValue)
   }
 
